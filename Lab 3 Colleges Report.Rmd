@@ -13,6 +13,7 @@ load("colleges2.rda")
 data(colleges2)
 ```
 
+
 ## About the data
 
 The College Scorecard (<https://collegescorecard.ed.gov/>) is a tool from the U.S. Department of Education for exploring information about colleges and universities. The complete data set can be downloaded and has 6,806 rows and 1,986 columns. The derived dataframe `colleges2` has data on 73 variables for 1732 institutions that meet these criteria:
