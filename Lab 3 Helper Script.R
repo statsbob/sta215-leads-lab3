@@ -1,6 +1,5 @@
 library(tidyverse)
 load("colleges2.rda")
-data(colleges2)
 
 
 ### 1. Summary Statistics
@@ -17,14 +16,15 @@ summary(colleges2$netprice)
 # Run these three commands.
 library(skimr)
 skim(colleges2, UGDS, netprice, SAT_AVG, GRAD_DEBT_MDN, FAMINC, MD_EARN_WNE_P10)
-skim(colleges2, ADM_RATE, RET_FT4, PCTPELL, PCTFLOAN, FIRST_GEN, GT_28K_P10)
+skim(colleges2, ADM_RATE, RET_FT4, GradRate8yr, PCTPELL, PCTFLOAN, FIRST_GEN, GT_28K_P10)
 
-# In Rmarkdown, it looks fine to have all the variables together, as long as we
+
+# In RMarkdown, it looks fine to have all the variables together, as long as we
 #   lump the "big number" variables together and then the percentage variables.
 # Copy this version into the Rmarkdown file. Run it here if you want to see what I meant 
 #    by cumbersome. 
 skim(colleges2, UGDS, netprice, SAT_AVG, GRAD_DEBT_MDN, FAMINC, MD_EARN_WNE_P10
-     , ADM_RATE, RET_FT4, PCTPELL, PCTFLOAN, FIRST_GEN, GT_28K_P10)
+     , ADM_RATE, RET_FT4, GradRate8yr, PCTPELL, PCTFLOAN, FIRST_GEN, GT_28K_P10)
 
 
 ## 2. Histogram of Net Price. 
@@ -56,7 +56,7 @@ ggplot(colleges2, aes(x=netprice)) +
 #   R Markdown document. 
 
 
-# 3. Net Price vs Type of Institution 
+## 3. Net Price vs Type of Institution 
 # The code below differs from the one above in that the fill argument got moved 
 #   to the mapping aesthetic and is set to a variable (control).  As a result, 
 #  separate histograms will be displayed for the two levels of that variable.
@@ -109,8 +109,8 @@ big_private <- colleges2 %>%
   select(INSTNM, UGDS)
 
 # Slice_max selects the rows with the 10 highest values on that variable. This
-#   is our desired command. Copy this and the View command into your R Markdown
-#   document.
+#   is our desired command. COPY this and the View command that follows into 
+#   your R Markdown document.
 big_private <- colleges2 %>% 
   filter(control=="Private") %>%
   select(INSTNM, UGDS) %>%
@@ -123,14 +123,18 @@ big_private
 ## 6. Create a data frame of MI schools
 
 # Modify the assignment command below, adding DPLYR functions one-at-a-time 
-#   (don't forget the pipe operator). Run the command after each modification
-#   and observe how the number of observations and variables changes. 
-#   a. Add a function to only keep rows for which STABBR is MI. 
-#   b. add a function to only keep the following variables:
-#       INSTNM, control, netprice, ACTCMMID, RET_FT4, FIRST_GEN, GT_28K_P10
+#   (don't forget the pipe operator each time). Run the command after each 
+#   modification and observe how the number of observations and variables changes.  
+#   Use the above example to guide you.
+# a. Add a function to only keep rows for which STABBR is MI. 
+# b. add a function to only keep the following variables:
+#       INSTNM, control, netprice, ACTCMMID, RET_FT4, GradRate8yr, FIRST_GEN
+# c. add one more DYPLYR function at the end to sort the table:
+#       arrange(control, INSTNM) 
 MIcolleges <- colleges2
 
-# Once your MIcolleges table has 43 obs and 7 variables, run this to view it. 
+# Once your MIcolleges table has 43 obs and 7 variables, run this to view it.
+#   If it looks right, COPY the above command into R Markdown.
 MIcolleges
 
 
@@ -142,8 +146,9 @@ GV <- filter(MIcolleges, INSTNM=="Grand Valley State University")
 GV$netprice
 
 # The code below was copied from problem 2 above and modified to run on the 
-#  new data frame. The GEOM_VLINE() function added a vertical line to the graph
-#  space, and the horizontal location (x-axis) is set to be the value examined above.
+#  new data frame. 
+# NOTICE the GEOM_VLINE() function added a vertical line to the graph space,
+#   and the horizontal location (x-axis) is set to be the value examined above.
 ggplot(MIcolleges, aes(x=netprice)) +
   geom_histogram(binwidth = 2500, color="black", fill="lightblue") +
   geom_vline(xintercept=GV$netprice, color="darkblue", linetype="dashed", size=1)
@@ -176,9 +181,7 @@ ggplot(MIcolleges, aes(x=control, y=netprice)) +
 #   geom_vline function from problems 7 (& don't forget a plus). Identify two 
 #   modifications that must be made to make this a horizontal line instead of 
 #   vertical.
-# Paste this command into your R Markdown file. 
+# COPY this command into your R Markdown file. 
 ggplot(MIcolleges, aes(x=control, y=netprice)) +
   geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) +
   geom_hline(yintercept=GV$netprice, color="darkblue", linetype="dashed", size=1)
-
-

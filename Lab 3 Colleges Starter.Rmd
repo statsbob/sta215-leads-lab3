@@ -1,0 +1,195 @@
+---
+title: "Lab 3 - Colleges"
+author: "Dr Bob"
+date: `r Sys.Date()`
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(skimr)
+library(knitr)
+load("colleges2.rda")
+data(colleges2)
+```
+
+## About the data
+
+The College Scorecard (<https://collegescorecard.ed.gov/>) is a tool from the U.S. Department of Education for exploring information about colleges and universities. The complete data set can be downloaded and has 6,806 rows and 1,986 columns. The derived dataframe `colleges2` has data on 73 variables for 1732 institutions that meet these criteria:
+
+* Is a Title IV school (processes federal finanical aid)
+* The "Predominant undergraduate degree awarded" is at least a bachelor's degree
+
+In this lab you'll perform descriptive analysis to explore these data. 
+
+## Instructions
+
+1. Use Save As and save your copy of this as **Lab 3 - Colleges.Rmd** (drop "starter"). 
+2. Next, **Knit** this document to look over the table of column descriptions just below this. 3. Then use the corresponding R script **Lab 3 Colleges Helper.R** to learn how to use R to perform some descriptive statistics. When you arrive at the report-ready output, paste that code into the appropriate code chunks below. 
+
+
+### Markdown Table Describing Selected Columns
+
+| COLUMN NAME           | DESCRIPTION                                                                                                                                                              |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| UGDS            | Enrollment of undergraduate certificate/degree-seeking students                                                                                                          |
+| netprice        | Average net price for Title IV institutions                                                                                                                              |
+| ACTCMMID        | Midpoint of the ACT cumulative score                                                                                                                                     |
+| GRAD_DEBT_MDN   | Median debt for students who have completed                                                                                                                              |
+| FAMINC          | Average Family Income                                                                                                                                                    |
+| MD_EARN_WNE_P10 | Median earnings of students working and not enrolled 10 years after entry                                                                                                |
+| ADM_RATE        | Admission rate                                                                                                                                                           |
+| RET_FT4         | Proportion of full-time, first-time, degree/certificate-seeking undergraduates who were enrolled at the institution in the fall 1 year after starting at the institution |
+| GradRate8yr     | Proportion of entering students that graduated at this school within 8 years of entry                                                                                    |
+| PCTPELL         | Percentage of undergraduates who receive a Pell Grant                                                                                                                    |
+| PCTFLOAN        | Percent of all undergraduate students receiving a federal student loan                                                                                                   |
+| FIRST_GEN       | Proportion of students that are first-generation (GVSU uses a different criteria)                                                                                        |
+| GT_28K_P10      | Share of students earning over $28,000/year (threshold earnings) 10 years after entry                                                                                    |
+
+
+
+
+## 1. Summary Statistics for Some Key Variables
+
+First we'll examine summary statistics for a small number of quantitative variables.
+
+```{r summstats}
+
+```
+  
+  
+# Explore Colleges & Universities Throughout the U.S.
+
+
+### 2. Histogram of Average Net Price. 
+
+Here you'll start with base code for making a histogram, which is provided in the R Script. Then I'll suggest some improvements. As you make each change and see the result, in the sentences below, replace the bolded words with an answer about what changed.
+
+```{r netprice-hist}
+
+```
+
+1. After adding `bindwidth=2500` to the geom_histogram() function, the bins got **ANSWER**.
+2. After adding `color="black"`, the **ANSWERs** are now black.
+3. After adding `fill="lightblue`, the **ANSWERs** are now light blue.
+
+
+### 3. Net Price vs Type of Institution
+
+The variable **control** indicates whether a school is public or private. Produce comparative histograms for the two levels of that variable. You'll see two ways to do this. 
+
+#### 3a. Version 1: use colors to show the two histograms on the same plot space.
+
+```{r price-control-color}
+
+```
+
+#### 3b. Version 2: use panels
+
+Another way to show two histograms is through the use of panels, which is referred to as a *facet* in the ggplot2 *grammar of graphics*. 
+
+```{r pricepanels}
+
+```
+
+
+## 4. Boxplot of number of degree-seeking undergraduate students by type of institution
+
+```{r ugds-box}
+
+```
+
+If you're like me, you're probably wondering what the deal is with that big-time outlier for private schools. We'll learn a little about isolating data the tidyverse way and then find out what the deal is.
+
+
+## 5. List the 10 Largest Private Institutions by number of undergraduates
+
+### Data Manipulation the Tidyverse way
+
+We often must extract data from a table before we can do what we want. The tidyverse package DPLYR is used for data manipulation. Go through the series of commands in the R Helper script one at a time, reading the provided comments, to get introduced to the fundamentals of this important package.
+
+```{r ten-largest}
+
+```
+
+What is the largest institution? This will probably surprise you (it did me). Do a Google search (sorry Bing) for that university and scroll down to a 2019 article from insidehighered.com. Why is it so big? (Replace ANSWER below with one complete sentence.)
+
+Which school and why: **ANSWER.**
+
+
+
+# Explore Colleges & Universities in Michigan
+
+## 6. Create a data frame of MI schools
+
+Now apply some of the data manipulation techniques you learned above to create a reduced table named **MIcolleges**. Follow through the provided comments (in the R script) to arrive at command that produces a table with 43 observations and 7 columns. Paste it here above the provided *kable* (Knit Table) command, which will display the table with nicer formatting. Uncomment that kable command & then knit.
+
+```{r mi-colleges}
+
+#kable(MIcolleges)
+```
+
+
+## 7. Histogram of Average Net Price with a reference line for GVSU 
+
+Follow the guidance provided in the R script and paste the code indicated by the comments.
+
+```{r netprice-mich-hist}
+## Paste here the command that creates a one-row dataframe for GVSU
+
+## Then paste here the entire GGPLOT command (spanning three lines) that was
+##   provided in the R script
+```
+
+
+## 8. Explore Net Price by Control - boxplots and beyond
+
+(*Note that this section draws heavily from Boxplots and Counts Visualization Primer*)
+
+Boxplots are a quick and simple way to represent a distribution, however they leave out a lot of information. Let's try out two related geoms and produce visualizations that tell us more about quantitative distributions. Proceed carefully through a series of commented plot commands until you have created a "violin plot" of net price with quartiles shown and a reference line for GVSU. 
+
+```{r netprice-violin}
+
+```
+
+## 9. ACT Combined Midpoint
+
+Create a histogram and a violin plot showing quartiles of ACTCMMID for all schools nationwide. Both should have a reference line for GVSU. 
+
+1. Copy the plot commands from the previous two chunks. 
+2. Then change the table name in two places. 
+3. Then replace the column name in four places.
+4. Finally, remove the binwidth argument from the histogram.
+
+```{r ACTCMMID}
+
+```
+
+## 10. Three Violin Plots for Michigan schools
+
+Create violin plots of these three variables for Michigan schools only (MIschools table), with each including a reference line for GVSU. 
+
+**Retention Rate** (RET_FT4) - Proportion of full-time, first-time, degree-seeking undergraduates who were enrolled at the institution in the fall 1 year after starting at the institution
+
+```{r violin-Ret}
+
+```
+
+**Graduation Rate** (GradRate8yr) - Proportion of entering students that graduated at this school within 8 years of entry
+
+```{r violin-Grad}
+
+```
+
+**First-Generation** (FIRST_GEN) - Proportion of students that are first-generation (GVSU uses a different criteria)
+
+```{r violin-FirstGen}
+
+```
+
+## Preparing to Submit
+
+When everything is complete, create a Word document by selecting the arrow next to Knit, and then **Knit to Word**.  Then download the Word file to your computer and upload that to Blackboard.
