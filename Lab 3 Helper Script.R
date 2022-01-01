@@ -11,9 +11,9 @@ summary(colleges2$netprice)
 
 
 # Skim (from skimr package) provides a nice summary of quantitative variables.
-# Here we'll run it separately on variables with "big numbers" and those that are percents.
-#    If run altogether, the formatting is cumbersome in the console window. 
-# Run these three commands.
+# Here we'll run it separately on variables with "big numbers" and those that 
+# are percents. If run altogether, the formatting is cumbersome in the console 
+# window. Run these three commands.
 library(skimr)
 skim(colleges2, UGDS, netprice, SAT_AVG, GRAD_DEBT_MDN, FAMINC, MD_EARN_WNE_P10)
 skim(colleges2, ADM_RATE, RET_FT4, GradRate8yr, PCTPELL, PCTFLOAN, FIRST_GEN, GT_28K_P10)
@@ -21,8 +21,8 @@ skim(colleges2, ADM_RATE, RET_FT4, GradRate8yr, PCTPELL, PCTFLOAN, FIRST_GEN, GT
 
 # In RMarkdown, it looks fine to have all the variables together, as long as we
 #   lump the "big number" variables together and then the percentage variables.
-# Copy this version into the Rmarkdown file. Run it here if you want to see what I meant 
-#    by cumbersome. 
+# Copy this version into the Rmarkdown file. Run it here if you want to see what
+#   I meant by cumbersome. 
 skim(colleges2, UGDS, netprice, SAT_AVG, GRAD_DEBT_MDN, FAMINC, MD_EARN_WNE_P10
      , ADM_RATE, RET_FT4, GradRate8yr, PCTPELL, PCTFLOAN, FIRST_GEN, GT_28K_P10)
 
@@ -44,7 +44,7 @@ ggplot(colleges2, aes(x=netprice)) +
 # By default, ggplot2 will choose a binwidth for your histogram that results in about 30 bins. 
 # You can set the binwidth manually with the binwidth argument, which is interpreted 
 #   in the units of the x axis. 
-# ADD `bindwidth=2500` to the geom_histogram() function in the code above. Add an 
+# ADD `binwidth=2500` to the geom_histogram() function in the code above. Add an 
 #   answer in the Rmarkdown document.
 
 # CHANGE 2
@@ -108,9 +108,9 @@ big_private <- colleges2 %>%
   filter(control=="Private") %>%
   select(INSTNM, UGDS)
 
-# Slice_max selects the rows with the 10 highest values on that variable. This
-#   is our desired command. COPY this and the View command that follows into 
-#   your R Markdown document.
+# Slice_max selects the rows with the 10 highest values on that variable. Now 
+#   we've arrived at our desired command. COPY this and the View command that 
+#   follows into your R Markdown document.
 big_private <- colleges2 %>% 
   filter(control=="Private") %>%
   select(INSTNM, UGDS) %>%
@@ -122,7 +122,7 @@ big_private
 
 ## 6. Create a data frame of MI schools
 
-# Modify the assignment command below, adding DPLYR functions one-at-a-time 
+# MODIFY the assignment command below, adding DPLYR functions one-at-a-time 
 #   (don't forget the pipe operator each time). Run the command after each 
 #   modification and observe how the number of observations and variables changes.  
 #   Use the above example to guide you.
@@ -148,7 +148,8 @@ GV$netprice
 # The code below was copied from problem 2 above and modified to run on the 
 #  new data frame. 
 # NOTICE the GEOM_VLINE() function added a vertical line to the graph space,
-#   and the horizontal location (x-axis) is set to be the value examined above.
+#   and the horizontal location (xintercept - location on the x-axis) is set to 
+#   be the value examined above.
 ggplot(MIcolleges, aes(x=netprice)) +
   geom_histogram(binwidth = 2500, color="black", fill="lightblue") +
   geom_vline(xintercept=GV$netprice, color="darkblue", linetype="dashed", size=1)
@@ -163,8 +164,8 @@ ggplot(MIcolleges, aes(x=control, y=netprice)) +
 
 # The dotplot geom places a marker for every value (useful for "smallish" data sets)
 #   The binaxis argument sets which axis is the numeric one (the binning axis).
-#   After running this and viewing the plot. Add the argument stackdir="center" 
-#   and re-run the code. 
+#   After running this and viewing the plot. Try it with and without the 
+#   stackdir="center" argument to see what that does.
 ggplot(MIcolleges, aes(x=control, y=netprice)) +
   geom_dotplot(binaxis="y", stackdir="center")
 
@@ -178,10 +179,9 @@ ggplot(MIcolleges, aes(x=control, y=netprice)) +
 #   we'll pass a vector of values resulting in the 25th, 50th and 75th percentiles
 #   being drawn. 
 # Add to this plot a horizontal line for the netprice of GVSU. Copy the  
-#   geom_vline function from problems 7 (& don't forget a plus). Identify two 
+#   geom_vline function from problem 7 (& don't forget a plus). Identify two 
 #   modifications that must be made to make this a horizontal line instead of 
-#   vertical.
+#   vertical and located in the right place on the y-axis.
 # COPY this command into your R Markdown file. 
 ggplot(MIcolleges, aes(x=control, y=netprice)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) +
-  geom_hline(yintercept=GV$netprice, color="darkblue", linetype="dashed", size=1)
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) 

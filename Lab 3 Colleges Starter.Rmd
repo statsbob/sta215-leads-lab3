@@ -1,14 +1,14 @@
 ---
 title: "Lab 3 - Colleges"
-author: "Dr Bob"
-date: `r Sys.Date()`
+author: "YOUR NAME GOES HERE"
+date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, error=TRUE)
 library(tidyverse)
 library(skimr)
 library(knitr)
@@ -28,7 +28,8 @@ In this lab you'll perform descriptive analysis to explore these data.
 ## Instructions
 
 1. Use Save As and save your copy of this as **Lab 3 - Colleges.Rmd** (drop "starter"). 
-2. Next, **Knit** this document to look over the table of column descriptions just below this. 3. Then use the corresponding R script **Lab 3 Colleges Helper.R** to learn how to use R to perform some descriptive statistics. When you arrive at the report-ready output, paste that code into the appropriate code chunks below. 
+1. Next, **Knit** this document to look over the table of column descriptions just below this. 
+1. Then use the corresponding R script **Lab 3 Colleges Helper.R** to learn how to use R to perform some descriptive statistics. When you arrive at the report-ready output, paste that code into the appropriate code chunks below. 
 
 
 ### Markdown Table Describing Selected Columns
@@ -37,7 +38,7 @@ In this lab you'll perform descriptive analysis to explore these data.
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | UGDS            | Enrollment of undergraduate certificate/degree-seeking students                                                                                                          |
 | netprice        | Average net price for Title IV institutions                                                                                                                              |
-| ACTCMMID        | Midpoint of the ACT cumulative score                                                                                                                                     |
+| ACTCMMID        | Midpoint between the 25th and 75th percentile of ACT cumulative scores.                                                                                                                                  |
 | GRAD_DEBT_MDN   | Median debt for students who have completed                                                                                                                              |
 | FAMINC          | Average Family Income                                                                                                                                                    |
 | MD_EARN_WNE_P10 | Median earnings of students working and not enrolled 10 years after entry                                                                                                |
@@ -72,7 +73,7 @@ Here you'll start with base code for making a histogram, which is provided in th
 
 ```
 
-1. After adding `bindwidth=2500` to the geom_histogram() function, the bins got **ANSWER**.
+1. After adding `binwidth=2500` to the geom_histogram() function, the bins got **ANSWER**.
 2. After adding `color="black"`, the **ANSWERs** are now black.
 3. After adding `fill="lightblue`, the **ANSWERs** are now light blue.
 
@@ -95,6 +96,11 @@ Another way to show two histograms is through the use of panels, which is referr
 
 ```
 
+#### Add commentary
+
+**Replace this sentence with a complete sentence or two describing the similarities or differences of the distribution of netprice for private vs public schools. ** 
+
+
 
 ## 4. Boxplot of number of degree-seeking undergraduate students by type of institution
 
@@ -115,7 +121,7 @@ We often must extract data from a table before we can do what we want. The tidyv
 
 ```
 
-What is the largest institution? This will probably surprise you (it did me). Do a Google search (sorry Bing) for that university and scroll down to a 2019 article from insidehighered.com. Why is it so big? (Replace ANSWER below with one complete sentence.)
+What is the largest institution? This will probably surprise you (it did me). Do a Google search (sorry Bing) for that university and scroll down to a 2019 article from insidehighered.com. Why is it so big? (Replace ANSWER below with a complete sentence.)
 
 Which school and why: **ANSWER.**
 
@@ -157,7 +163,8 @@ Boxplots are a quick and simple way to represent a distribution, however they le
 
 ## 9. ACT Combined Midpoint
 
-Create a histogram and a violin plot showing quartiles of ACTCMMID for all schools nationwide. Both should have a reference line for GVSU. 
+ACTCMMID is the midpoint between the 25th and 75th percentile of ACT cumulative scores. Create a histogram and a violin plot showing quartiles of ACTCMMID for
+**all schools nationwide**. Both should have a reference line for GVSU. 
 
 1. Copy the plot commands from the previous two chunks. 
 2. Then change the table name in two places. 
@@ -168,27 +175,64 @@ Create a histogram and a violin plot showing quartiles of ACTCMMID for all schoo
 
 ```
 
+
+#### Interpretation
+Relative to both public and private schools in the U.S., the ACT Midpoint for 
+GVSU is **REPLACE ME WITH TWO OR THREE WORDS, INCLUDING AN ADVERB INDICATING HOW MUCH**
+
+
+
 ## 10. Three Violin Plots for Michigan schools
 
-Create violin plots of these three variables for Michigan schools only (MIschools table), with each including a reference line for GVSU. 
+Create violin plots of the three variables indicated below, **for Michigan schools only** (MIschools table), with each including a reference line for GVSU. Complete
+the interpretive sentences by replacing the bold YOUR WORDS with your own words 
+(keep them bolded). 
 
-**Retention Rate** (RET_FT4) - Proportion of full-time, first-time, degree-seeking undergraduates who were enrolled at the institution in the fall 1 year after starting at the institution
+
+### **Retention Rate** (RET_FT4)
+Proportion of full-time, first-time, degree-seeking undergraduates who were enrolled at the institution in the fall 1 year after starting at the institution
 
 ```{r violin-Ret}
 
 ```
 
-**Graduation Rate** (GradRate8yr) - Proportion of entering students that graduated at this school within 8 years of entry
+#### Interpretation - Add text where indicated
+* Among public schools there are a few outliers with very high retention rates,
+but otherwise there is very little variation in retention rate
+* The distribution of retention rate for private schools has a similar median to
+that of public schools but there is **YOUR WORDS** variation.
+* Among public schools the retention rate at GVSU is **YOUR WORDS**
+
+
+### **Graduation Rate** (GradRate8yr) 
+Proportion of entering students that graduated at this school within 8 years of entry
 
 ```{r violin-Grad}
 
 ```
 
-**First-Generation** (FIRST_GEN) - Proportion of students that are first-generation (GVSU uses a different criteria)
+#### Interpretation - Add text where indicated
+* The distribution of Graduation Rate is very similar for public and private 
+schools in Michigan, but there are some private school outliers with 
+**YOUR WORDS**
+* Relative to other schools in Michigan, Grand Valley's Graduation Rate is 
+**YOUR WORDS**
+
+
+### **First-Generation** (FIRST_GEN) 
+Proportion of students that are first-generation (GVSU a different criteria in publications)
 
 ```{r violin-FirstGen}
 
 ```
+
+#### Interpretation - Add text where indicated
+* Relative to other public schools in Michigan, GVSU has a **YOUR WORDS** 
+proportion of students at GVSU that are first-generation.
+* Compared to public schools, there is **YOUR WORDS** variability in the 
+proportion of students that are first-generation.
+
+
 
 ## Preparing to Submit
 
